@@ -22,7 +22,7 @@ public class MainActivity extends Activity{
         hyw = (HybridWebView) findViewById(R.id.hyw);
         hyw.setWebViewCache(true); // 支持缓存
         hyw.registerService(new UserService());
-        hyw.loadUrl("https://www.baidu.com");//file:///android_asset/Hybrid/index.html
+        hyw.loadUrl("file:///android_asset/Hybrid/index.html");//https://www.baidu.com
     }
 
 }
