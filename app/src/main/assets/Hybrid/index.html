@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        js调用java
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript" src="script/CTJSBridge.js"></script>
+</head>
+<body>
+
+<H1>我是HTML5</H1>
+<br/>
+<p>
+    <img id="imgshow2">
+</p>
+<p>
+    <xmp id="show">
+    </xmp>
+</p>
+
+<p>
+    <input type="button" value="点击获取随机数" onclick="yoClick(0);"/>
+</p>
+
+<!--<p>
+    <input type="button" value="AESEncryptService" onclick="yoClick(12);" />
+</p>
+<p>
+    <input type="button" value="AESDecryptService" onclick="yoClick(13);"/>
+</p>
+<p>
+    <input type="button" value="Base64Service" onclick="yoClick(14);"/>
+</p>-->
+<!--<p>
+    <input type="button" value="Callback" onclick="onClickTest();"/>
+</p>-->
+
+
+</body>
+<script type="text/javascript" >
+    function jwNativeApi(serviceName, data) {
+        this.serviceName = serviceName;
+        this.data = data;
+    }
+    var apiArray = new Array();
+    apiArray[0] =  {serviceName:"UserService", data:{"key":"stop"}};    callbacks = {
+        success:function(data){
+            bridgeLog(data,"success");
+            var path=data.path;
+            var type=suffix(path);
+            if(path&&(type==".png"||type==".PNG"||type==".jpg"||type==".gif"||type==".JPG"||type==".GIF")){
+                document.getElementById("imgshow").src=path;
+            }
+        },
+        fail:function(data){
+            bridgeLog(data,"fail");
+        },
+        progress:function(data){
+            bridgeLog(data,"progress");
+        }
+    };
+   /* var p="/storage/sdcard1/yoyo/yoyo.jpg";
+    var type=suffix(p);
+    if(type==".jpg"||type==".gif"||type==".JPG"||type==".GIF"){
+        document.getElementById("imgshow").src=p;
+        callbacks.success({"path":"/download","destinationPath":"/download/hsada.zip"})
+    }*/
+    var dd={"path":"/storage/emulated/0/hybrid.demo.app.jw.com.hybridframework/cache/image/1464942032322.jpg"}
+    test(dd);
+    function test(data){
+        var path=data.path;
+        var type=suffix(path);
+        if(path&&(type==".png"||type==".PNG"||type==".jpg"||type==".gif"||type==".JPG"||type==".GIF")){
+            document.getElementById("imgshow2").src=path;
+        }
+    }
+    function suffix(file_name){
+        var result =/\.[^\.]+/.exec(file_name);
+        return result;
+    }
+    function yoClick(num) {
+        // var str1 = document.getElementById("text1").value;
+        // var str2 = document.getElementById("text2").value;
+        //var data = {id: 1, content: "这是一个图片 <img src=\"a.png\"/> test\r\nhahaha"};
+        var api=apiArray[num];
+        LoadMethod(api.serviceName,api.data,callbacks);
+    }
+
+    function bridgeLog(logContent,callbacksText) {
+        document.getElementById("show").innerHTML = (callbacksText+" : "+JSON.stringify(logContent));
+    }
+
+  /*  function onClickTest(){
+        window.CTCallBackList[-1384590991] = callbacks;
+        window.Callback(-1384590991, "success", {"imei":"866288028667743"});
+    }*/
+</script>
+
+</html>
