@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Hybrid.iml" filepath="$PROJECT_DIR$/Hybrid.iml" />
+      <module fileurl="file://F:\AndroidStudioProject-Yourself\Hybrid\Hybrid.iml" filepath="F:\AndroidStudioProject-Yourself\Hybrid\Hybrid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://F:\AndroidStudioProject-Yourself\Hybrid\app\app.iml" filepath="F:\AndroidStudioProject-Yourself\Hybrid\app\app.iml" />
     </modules>
   </component>
 </project>

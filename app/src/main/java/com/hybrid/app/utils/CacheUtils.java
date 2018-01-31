@@ -17,7 +17,7 @@ public class CacheUtils {
 
 
 	public static String  getCachePath(Context context){
-		return setMkdir(Environment.getExternalStorageDirectory().getPath().toString()+ File.separator + context.getPackageName() + CacheUtils.DIRNAME).getPath();
+		return mkdirs(Environment.getExternalStorageDirectory().getPath().toString()+ File.separator + context.getPackageName() + CacheUtils.DIRNAME).getPath();
 	}
 
 	
@@ -25,7 +25,7 @@ public class CacheUtils {
 	 * 创建目录
 	 * @param path
 	 */
-	public static File setMkdir(String path)
+	public static File mkdirs(String path)
 	{
 		File file = new File(path);
 		if(!file.exists()) {

@@ -33,23 +33,7 @@ public class HybridWebViewClient extends WebViewClient {
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
-        this.url = url;
 
-        Uri uri = Uri.parse(url);
-        String  host = uri.getHost();
-        switch (uri.getScheme()){ // 判断Scheme拦截服务
-            case HybridWebViewClient.HYBRID_SCHEME:
-                if(host.equals(HybridWebViewClient.HYBRID_HOST)){
-                    String serviceName = uri.getQueryParameter(HybridWebViewClient.HYBRID_SERVICE);
-                    String callbackId  =  uri.getQueryParameter(HybridWebViewClient.HYBRID_CALBACKID);
-                    String data = uri.getQueryParameter(HybridWebViewClient.HYBRID_DATA);
-                    BaseService mBaseService  = mHybridWebView.getmService().get(serviceName);
-                    if(mBaseService != null){ // 服务不为空就开始调用
-                        mBaseService.onService(mHybridWebView.getHybridWebViewClient(),data,callbackId);
-                    }
-                    view.stopLoading();
-                }
-        }
     }
 
     @Override
@@ -73,7 +57,25 @@ public class HybridWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        return  super.shouldOverrideUrlLoading(view,url);
+         boolean flag = super.shouldOverrideUrlLoading(view,url);
+        this.url = url;
+        Uri uri = Uri.parse(url);
+        String  host = uri.getHost();
+        switch (uri.getScheme()){ // 判断Scheme拦截服务
+            case HybridWebViewClient.HYBRID_SCHEME:
+                if(host.equals(HybridWebViewClient.HYBRID_HOST)){
+                    String serviceName = uri.getQueryParameter(HybridWebViewClient.HYBRID_SERVICE);
+                    String callbackId  =  uri.getQueryParameter(HybridWebViewClient.HYBRID_CALBACKID);
+                    String data = uri.getQueryParameter(HybridWebViewClient.HYBRID_DATA);
+                    BaseService mBaseService  = mHybridWebView.getmService().get(serviceName);
+                    if(mBaseService != null){ // 服务不为空就开始调用
+                        mBaseService.onService(mHybridWebView.getHybridWebViewClient(),data,callbackId);
+                    }
+                    flag =true;
+                    view.stopLoading();
+                }
+        }
+        return flag;
     }
 
     @Override
